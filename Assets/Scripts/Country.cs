@@ -59,6 +59,7 @@ public class Country : MonoBehaviour
     const float maxNumberOfCrossPlatformCoefficient = 0.03f;
 
     // save for effectivity
+    Animator animator;
     Timer timer;
     int timeToCountNextInteration = 1; 
 
@@ -67,6 +68,10 @@ public class Country : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Animator 
+        animator = gameObject.GetComponent<Animator>();
+
+
         //Timer
         timer = gameObject.AddComponent<Timer>();
         timer.Duration = timeToCountNextInteration;
@@ -111,7 +116,7 @@ public class Country : MonoBehaviour
                         1, totalNumberOfGadgets);
 
                 }
-                Debug.Log(currentNumberOfInfectedGadgets);
+                //Debug.Log(currentNumberOfInfectedGadgets);
                 
             }
 
@@ -166,7 +171,18 @@ public class Country : MonoBehaviour
             //restart the timer
             timer.Run();
         }
+    }
 
+    public void GetSelected()
+    {
+            animator.SetBool("Selected", true);
+            //Debug.Log("true");
+    }
+
+    public void GetDeselected()
+    {
+        animator.SetBool("Selected", false);
+        //Debug.Log("true");
     }
 
     /// <summary>
