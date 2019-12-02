@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Country
+  - InformalBar
+  - World
+  - ButtonInformalText
+  - TransmissionButton
+  - SecrecyButton
+  - AbilitiesButton
   layers:
   - Default
   - TransparentFX

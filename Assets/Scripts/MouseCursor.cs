@@ -21,24 +21,42 @@ public class MouseCursor : MonoBehaviour
     
     private void OnTriggerStay2D(Collider2D coll)
     {
-        //Select the country and deselect all others
-        Country scriptCountry = coll.gameObject.GetComponent<Country>();
 
-        //if mouse get down show the animation 
-        if (Input.GetMouseButtonDown(0))
+        if (coll.CompareTag("Country"))
         {
-            //Deselect a country
-            GameObject [] countries =  GameObject.FindGameObjectsWithTag("Country");
-            foreach (GameObject country in countries)
-            {
-                country.GetComponent<Country>().GetDeselected();
-            }
-            //test
-            Debug.Log("The number of countries = " + countries.Length); 
+            //Select the country and deselect all others
+            Country scriptCountry = coll.gameObject.GetComponent<Country>();
 
-            //Select the country
-            scriptCountry.GetSelected();
-            //Debug.Log("true");
+            //if mouse get down show the animation 
+            if (Input.GetMouseButtonDown(0))
+            {
+
+             GameObject[] countries = GameObject.FindGameObjectsWithTag("Country");
+             //test
+             //Debug.Log("The number of countries = " + countries.Length);
+             foreach (GameObject country in countries)
+             {
+                country.GetComponent<Country>().GetDeselected();
+             }
+
+             //Select the country
+             scriptCountry.GetSelected();
+             //Debug.Log("true");
+            }
+        }
+
+        if (coll.CompareTag("World"))
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameObject[] countries = GameObject.FindGameObjectsWithTag("Country");
+                //test
+                //Debug.Log("The number of countries = " + countries.Length);
+                foreach (GameObject country in countries)
+                {
+                    country.GetComponent<Country>().GetDeselected();
+                }
+            }
         }
     }
 }
