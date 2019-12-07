@@ -319,7 +319,7 @@ public class Country : MonoBehaviour
             {
                 // count how much country use its research potensian it depends on number of infected gadgets
                 float minPotentialIsUsed = 0.05f;
-                howMuchofThatPotentialIsUsed = currentNumberOfInfectedGadgets / totalNumberOfGadgets + minPotentialIsUsed;
+                howMuchofThatPotentialIsUsed = currentNumberOfInfectedGadgets / (totalNumberOfGadgets * Mathf.Clamp(currentSecretiveness, 1, maxSecretiveness)) + minPotentialIsUsed; //the more secretiveness the hard to develop antivirus
                 
                 // count the current progres in antivirus research 
                 if (worldScript.CurrentProgressInAntivirusResearch < worldScript.MaxProgressInAntivirusResearch)
@@ -454,6 +454,20 @@ public class Country : MonoBehaviour
         animator.SetBool("Selected", false);
         controlInformalBarScript.GetDesellected();
         //Debug.Log("true");
+    }
+
+    /// <summary>
+    /// Add a secretiveness 
+    /// </summary>
+    /// <param name="number"></param>
+    public void AddSecretiveness(int number)
+    {
+        if (currentSecretiveness < maxSecretiveness)
+        {
+            currentSecretiveness = Mathf.Clamp(currentSecretiveness + number, 0, maxSecretiveness );
+            //test
+            //Debug.Log("currentSecretiveness = " + currentSecretiveness);
+        }
     }
 
     /// <summary>
