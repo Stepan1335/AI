@@ -4,20 +4,9 @@ using UnityEngine;
 
 public class TransmissionButton : MonoBehaviour
 {
-    GameObject[] transmittionButtons;
-    GameObject[] secrecyButtons;
-    GameObject[] abilitiesButton;
-
-    private void Start()
-    {
-        transmittionButtons = GameObject.FindGameObjectsWithTag("TransmissionButton");
-        secrecyButtons = GameObject.FindGameObjectsWithTag("SecrecyButton");
-        abilitiesButton = GameObject.FindGameObjectsWithTag("AbilitiesButton");
-
-        //Debug.Log("transmittionButtons Length = " + transmittionButtons.Length);
-        //Debug.Log("secrecyButtons Length = " + secrecyButtons.Length);
-        //Debug.Log("abilitiesButton Length = " + abilitiesButton.Length);
-    }
+    [SerializeField] GameObject[] transmittionButtons;
+    [SerializeField] GameObject[] secrecyButtons;
+    [SerializeField] GameObject[] abilitiesButton;
 
     public void PressButton()
     {

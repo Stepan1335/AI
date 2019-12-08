@@ -6,7 +6,8 @@ using UnityEngine;
 /// </summary>
 public class MouseCursor : MonoBehaviour
 {
-    
+    static bool canControl = true;//need for turning of a contron when user in virus control panel
+
     // Update is called once per frame
     void Update()
     {
@@ -17,46 +18,57 @@ public class MouseCursor : MonoBehaviour
         //make the object follow the mouse cursor
         transform.position = position;
     }
-
     
     private void OnTriggerStay2D(Collider2D coll)
     {
-
-        if (coll.CompareTag("Country"))
+        if (canControl)
         {
-            //Select the country and deselect all others
-            Country scriptCountry = coll.gameObject.GetComponent<Country>();
-
-            //if mouse get down show the animation 
-            if (Input.GetMouseButtonDown(0))
+            if (coll.CompareTag("Country"))
             {
+                //Select the country and deselect all others
+                Country scriptCountry = coll.gameObject.GetComponent<Country>();
 
-             GameObject[] countries = GameObject.FindGameObjectsWithTag("Country");
-             //test
-             //Debug.Log("The number of countries = " + countries.Length);
-             foreach (GameObject country in countries)
-             {
-                country.GetComponent<Country>().GetDeselected();
-             }
-
-             //Select the country
-             scriptCountry.GetSelected();
-             //Debug.Log("true");
-            }
-        }
-
-        if (coll.CompareTag("World"))
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                GameObject[] countries = GameObject.FindGameObjectsWithTag("Country");
-                //test
-                //Debug.Log("The number of countries = " + countries.Length);
-                foreach (GameObject country in countries)
+                //if mouse get down show the animation 
+                if (Input.GetMouseButtonDown(0))
                 {
-                    country.GetComponent<Country>().GetDeselected();
+                    GameObject[] countries = GameObject.FindGameObjectsWithTag("Country");
+                    //test
+                    //Debug.Log("The number of countries = " + countries.Length);
+                    foreach (GameObject country in countries)
+                    {
+                        country.GetComponent<Country>().GetDeselected();
+                    }
+                    //Select the country
+                    scriptCountry.GetSelected();
+                    //Debug.Log("true");
+                }
+            }
+            if (coll.CompareTag("World"))
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    GameObject[] countries = GameObject.FindGameObjectsWithTag("Country");
+                    //test
+                    //Debug.Log("The number of countries = " + countries.Length);
+                    foreach (GameObject country in countries)
+                    {
+                        country.GetComponent<Country>().GetDeselected();
+                    }
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// turn on control in game
+    /// </summary>
+    static public void CanControl()
+    {
+        canControl = true;
+    }
+
+    static public void CantControl()
+    {
+        canControl = false;
     }
 }

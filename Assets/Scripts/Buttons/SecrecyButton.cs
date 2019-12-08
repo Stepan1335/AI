@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class SecrecyButton : MonoBehaviour
 {
-    GameObject[] transmittionButtons;
-    GameObject[] secrecyButtons;
-    GameObject[] abilitiesButton;
+    [SerializeField] GameObject[] transmittionButtons;
+    [SerializeField] GameObject[] secrecyButtons;
+    [SerializeField] GameObject[] abilitiesButton;
 
     private void Start()
     {
-        //look for referenses for all buttons
-        transmittionButtons = GameObject.FindGameObjectsWithTag("TransmissionButton");
-        secrecyButtons = GameObject.FindGameObjectsWithTag("SecrecyButton");
-        abilitiesButton = GameObject.FindGameObjectsWithTag("AbilitiesButton");
-
         //Debug.Log("transmittionButtons Length = " + transmittionButtons.Length);
         //Debug.Log("secrecyButtons Length = " + secrecyButtons.Length);
         //Debug.Log("abilitiesButton Length = " + abilitiesButton.Length);

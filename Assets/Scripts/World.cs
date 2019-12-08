@@ -39,7 +39,7 @@ public class World : MonoBehaviour
     bool antivirusDesigned = false;
     float researchPotential = 0f;
     float howMuchofThatPotentialIsUsed = 0f;
-    float currentProgressInAntivirusResearch = 0f;
+    static float currentProgressInAntivirusResearch = 0f;
     const float maxProgressInAntivirusResearch = 100f;
 
     //Timer
@@ -240,7 +240,14 @@ public class World : MonoBehaviour
 
         }
     }
-
+    /// <summary>
+    /// reduce Progress Of Antivirus Research on set number
+    /// </summary>
+    /// <param name="number">what number to reduce</param>
+    public static void reduceProgressOfAntivirusResearch(float number)
+    {
+        currentProgressInAntivirusResearch = Mathf.Clamp(currentProgressInAntivirusResearch - number, 0, maxProgressInAntivirusResearch);
+    }
     /// <summary>
     /// Add a points
     /// </summary>
