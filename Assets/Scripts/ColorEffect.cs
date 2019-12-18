@@ -32,9 +32,9 @@ public class ColorEffect : MonoBehaviour
         if (timer.Finished)
         {
             
-            gadgetPriorityCoefficient = (float)country.CurrentNumberOfInfectedGadgets / (float)country.TotalNumberOfGadgets;
-            infectedPeoplePriorityCoefficient = (float)country.CurrentNumberOfInfectedPeople / ((float)country.TotalNumberOfPeople - (float)country.CurrentNumberOfDeadPeople) * 1.5f;
-            deadPeoplePriorityCoefficient = (float)country.CurrentNumberOfDeadPeople / (float)country.TotalNumberOfPeople * 2;
+            gadgetPriorityCoefficient = Mathf.Clamp((float)country.CurrentNumberOfInfectedGadgets / (float)country.TotalNumberOfGadgets, 0, 1);
+            infectedPeoplePriorityCoefficient = Mathf.Clamp((float)country.CurrentNumberOfInfectedPeople / (float)country.TotalNumberOfPeople * 1.5f, 0, 1.5f);
+            deadPeoplePriorityCoefficient =Mathf.Clamp((float)country.CurrentNumberOfDeadPeople / (float)country.TotalNumberOfPeople * 2, 0, 2);
            
             //count the maximum coefficient
             float priorityCoefficient = Mathf.Max(gadgetPriorityCoefficient, infectedPeoplePriorityCoefficient, deadPeoplePriorityCoefficient);
@@ -53,6 +53,9 @@ public class ColorEffect : MonoBehaviour
                 image.color = new Color(0, 0, 0, Mathf.Clamp((float)country.CurrentNumberOfDeadPeople / (float)country.TotalNumberOfPeople, 0, 0.4f));
             }
             timer.Run();
+
+            Debug.Log("priorityCoefficient = " + priorityCoefficient + "  " + country.CountryName);
+            
         }
     }
 }

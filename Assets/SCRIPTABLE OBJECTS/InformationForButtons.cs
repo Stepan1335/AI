@@ -6,5 +6,6 @@ using UnityEngine;
 public class InformationForButtons : ScriptableObject
 {
     [TextArea(14,10)] public new string informationAboutButton;
+    public int pointCost = 0;
 }
 

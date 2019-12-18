@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   informationAboutButton: Virus become cross platform and can infect different operating
     system
+  pointCost: 5

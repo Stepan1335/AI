@@ -15,10 +15,14 @@ public class MessengersButton : MonoBehaviour
     /// </summary>
     public void ButtonGetDown()
     {
+        pointsCost = transform.parent.GetComponentInChildren<InformationAboutButton>().pointsCost; //find out how much this button will be cost
+        //Debug.Log("pointsCost = " + pointsCost);
         if (World.Points >= pointsCost)
         {
             if (!buttonPressed) // button can be pressed only one time 
             {
+                CoefficientData.AddingAdditionalPoints(1);
+                AudioManager.Play(AudioClipName.ButtonClick);
                 GameObject[] countries;
                 countries = GameObject.FindGameObjectsWithTag("Country");
                 if (countries.Length > 0)
@@ -30,8 +34,8 @@ public class MessengersButton : MonoBehaviour
                 }
                 gameObject.GetComponent<Image>().sprite = changeImage; //change sprite 
                 buttonPressed = true;
+                World.subtractPoints(pointsCost);
             }
-            World.subtractPoints(pointsCost);
         }
     }
 }

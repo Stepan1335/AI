@@ -6,15 +6,19 @@ using UnityEngine.UI;
 public class USBCoefficient : MonoBehaviour
 {
     [SerializeField] Sprite changeImage;
-    public int pointsCost = 0;
-    bool buttonPressed = false;
+    int pointsCost = 0;
+    public bool buttonPressed = false;
 
     public void ButtonGetDown()
     {
+        pointsCost = transform.parent.GetComponentInChildren<InformationAboutButton>().pointsCost; //find out how much this button will be cost
+        //Debug.Log("pointsCost = " + pointsCost);
         if (World.Points >= pointsCost)
         {
             if (!buttonPressed)
             {
+                CoefficientData.AddingAdditionalPoints(1);
+                AudioManager.Play(AudioClipName.ButtonClick);
                 GameObject[] countries;
                 countries = GameObject.FindGameObjectsWithTag("Country");
                 if (countries.Length > 0)
@@ -26,8 +30,8 @@ public class USBCoefficient : MonoBehaviour
                 }
                 gameObject.GetComponent<Image>().sprite = changeImage;
                 buttonPressed = true;
+                World.subtractPoints(pointsCost);
             }
-            World.subtractPoints(pointsCost);
         }
     }
 

@@ -25,12 +25,15 @@ public class World : MonoBehaviour
     long totalNumberOfPeople = 0;
     public float minChanseForPackageToBeInfected = 0.05f;
 
-    float currentLethality = 0;
+    static float currentLethality = 0;
 
     string nameOfWorld = "World";
 
     //flag control game start
     bool gameStarted = false;
+    bool endGame = false;
+    static bool peoplePrayOnAI = false; //flag needs for ending game and show player the right ending
+    static bool matrixCreation = false;
 
     //Points
     static int points = 0;
@@ -45,6 +48,12 @@ public class World : MonoBehaviour
     //Timer
     Timer timerUpdateInformation;
     float timerDurationUpdateInfromation = 1;
+
+    //Activate AICreat button when number of infected gadgets become more that some interes
+    [SerializeField] GameObject AIButton;
+    [SerializeField] float interesToActivateAIButton = 0.3f;
+    bool aIButtonCreated = false;
+    [TextArea(10, 3)] static string endingText = " ";
 
     /// <summary>
     /// Creating a system what will send packeges to different countries
@@ -63,6 +72,14 @@ public class World : MonoBehaviour
     #endregion
 
     #region Properties
+
+    /// <summary>
+    /// EndingText
+    /// </summary>
+    public static string EndingText
+    {
+        get { return endingText; }
+    }
 
     /// <summary>
     /// Points 
@@ -179,25 +196,58 @@ public class World : MonoBehaviour
         }
         GetCurrentInformation();
 
-        //test currentLethality
-        //ChangeCurrentLethality(0.1f);
-
         //references
         graph = GraphBuilder.Graph;
         //Timer
         timerCreatingNewPackeges = gameObject.AddComponent<Timer>();
         timerCreatingNewPackeges.Duration = timerDurationCreatingNewPackeges;
         timerCreatingNewPackeges.Run();
+
+        //test
+        //Matrix creation 
+        //matrixCreation = true;
+        //People pray on Ai
+        //peoplePrayOnAI = true; 
+        /*
+        GameObject[] countries;
+        countries = GameObject.FindGameObjectsWithTag("Country");
+        if (countries.Length > 0)
+        {
+            foreach (GameObject country in countries)
+            {
+                country.GetComponent<Country>().GetInfectedPeople(11000);
+            }
+        }*/
+
+        //test currentLethality
+        //AddLethality(0.5f);
+
+        //currentProgressInAntivirusResearch = maxProgressInAntivirusResearch;
+
+        points = 300;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // check for pausing game
+        if (Input.GetKeyDown(KeyCode.Escape) && GameObject.FindGameObjectWithTag("PauseMenu") == null)
+        {
+
+            MenuManager.GoToMenu(MenuName.Pause);
+            //AudioManager.Play(AudioClipName.PauseGame);
+
+        }
+
         //Start the game
         if (!gameStarted && ControlInformalBar.SelectedCountry != null)
         {
             gameStarted = true;
             ControlInformalBar.SelectedCountry.GetInfectedGadget(1);
+
+            //test
+            //ControlInformalBar.SelectedCountry.GetInfectedPeople(1000000);
+            //AddLethality(0.5f);
             // test Debug.Log("Did " + gameStarted);
         }
 
@@ -206,10 +256,82 @@ public class World : MonoBehaviour
             GetCurrentInformation();
             timerUpdateInformation.Run();
 
+            //test
+            //Debug.Log("currentNumberofDeadPeople = " + currentNumberofDeadPeople);
+            //Debug.Log("totalNumberOfPeople = " + totalNumberOfPeople);
+
             //Antivirus
             if (currentProgressInAntivirusResearch == maxProgressInAntivirusResearch)
             {
                 antivirusDesigned = true;
+            }
+
+            //Activate AI create button
+            if ((float)currentNumberOfInfectedGadgets / (float)totalNumberOfGadgets > interesToActivateAIButton && !aIButtonCreated)
+            {
+                if (AIButton != null)
+                {
+                    AIButton.SetActive(true);
+                    Debug.Log("CreateAI button was activated");
+                }
+                else
+                {
+                    Debug.Log("No references to AI Button  gameobject");
+                }
+                aIButtonCreated = true;
+            }
+
+            //end the game
+            //Virus kill all people           
+            if (!endGame)
+            {
+                if (currentNumberofDeadPeople >= totalNumberOfPeople)
+                {
+                    Debug.Log("All People Are Dead You Win ");
+                    endingText = "All People Are Dead You Win ";
+                    endGame = true;
+                    // Create a game over menu
+                    if (GameObject.FindGameObjectWithTag("GameOver") == null)
+                    {
+                        MenuManager.GoToMenu(MenuName.GameOver);
+                    }
+                }
+                else if (AntivirusDesigned)
+                {
+                    Debug.Log("you are lose, antivitus was design");
+                    endingText = "you are lose, antivitus was design ";
+                    endGame = true;
+                    // Create a game over menu
+                    if (GameObject.FindGameObjectWithTag("GameOver") == null)
+                    {
+                        MenuManager.GoToMenu(MenuName.GameOver);
+                    }
+                }
+                else if (currentNumberOfInfectedPeople >= totalNumberOfPeople - currentNumberofDeadPeople)
+                {
+                    if (matrixCreation)
+                    {
+                        Debug.Log("All people produce a electricity now, You Win");
+                        endingText = "All people produce a electricity now, You Win";
+                        endGame = true;
+                        // Create a game over menu
+                        if (GameObject.FindGameObjectWithTag("GameOver") == null)
+                        {
+                            MenuManager.GoToMenu(MenuName.GameOver);
+                        }
+                    }
+                    else if (peoplePrayOnAI)
+                    {
+                        Debug.Log("All people pray to AI You win");
+                        endingText = "All people pray to AI You win ";
+                        endGame = true;
+                        // Create a game over menu
+                        if (GameObject.FindGameObjectWithTag("GameOver") == null)
+                        {
+                            MenuManager.GoToMenu(MenuName.GameOver);
+                        }
+                    }
+                }
             }
         }
 
@@ -220,7 +342,7 @@ public class World : MonoBehaviour
             currentSelectedCountry = graph.Nodes[Random.Range(0, graph.Nodes.Count)]; //select a random rountry 
             if (currentSelectedCountry != lastSelectedCountry && currentSelectedCountry.Neighbors.Count > 0) // check for two packages will not create in same country
             {
-                GameObject package = Instantiate(packegePrefab, currentSelectedCountry.Value.gameObject.transform.position, Quaternion.identity); //Create a package
+                GameObject package = Instantiate(packegePrefab, currentSelectedCountry.Value.Position, Quaternion.identity); //Create a package
 
                 //count if the package will be infected
                 bool willPackageBeInfected = false;
@@ -240,6 +362,19 @@ public class World : MonoBehaviour
 
         }
     }
+    /*
+    /// <summary>
+    /// starts a game
+    /// </summary>
+    static public void StartGame()
+    {
+        currentProgressInAntivirusResearch = 0;
+        currentLethality = 0;
+        peoplePrayOnAI = false;
+        matrixCreation = false;
+        endingText = " ";
+        points = 0;
+    }*/
     /// <summary>
     /// reduce Progress Of Antivirus Research on set number
     /// </summary>
@@ -264,6 +399,7 @@ public class World : MonoBehaviour
     public static void subtractPoints(int howMuchToSubtract)
     {
         points = Mathf.Clamp(points - howMuchToSubtract, 0, 100000);
+        //Debug.Log("points = " + points);
     }
 
     /// <summary>
@@ -303,9 +439,25 @@ public class World : MonoBehaviour
         //Debug.Log("currentProgressInAntivirusResearch = " + currentProgressInAntivirusResearch);
     }
 
-    void ChangeCurrentLethality(float onWhatNumberToChange)
+    public static void AddLethality(float number)
     {
-        currentLethality = onWhatNumberToChange;
+        currentLethality = Mathf.Clamp(currentLethality + number, 0 , 100000);
+    }
+
+    public static void ChangePeoplePrayOnAIFlag(bool flag)
+    {
+        peoplePrayOnAI = flag;
+
+        //test
+        //Debug.Log("peoplePrayOnAI " + peoplePrayOnAI);
+    }
+
+    public static void ChngeMatrixCreationFlag(bool flag)
+    {
+        matrixCreation = flag;
+
+        //test
+        //Debug.Log("matrixCreation " + matrixCreation);
     }
 
     #endregion

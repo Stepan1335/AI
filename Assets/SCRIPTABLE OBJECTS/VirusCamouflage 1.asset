@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: VirusCamouflage 1
   m_EditorClassIdentifier: 
   informationAboutButton: "Virus camouflage itself in other software. Level 1 \n"
+  pointCost: 1

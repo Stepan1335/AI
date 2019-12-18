@@ -12,7 +12,7 @@ public class ExitButtonVirusControlPanel : MonoBehaviour
         {
             virusControlPatel.SetActive(false);
         }
-
+        AudioManager.Play(AudioClipName.ButtonClick);
         MouseCursor.CanControl(); // able control in game
     }
 }

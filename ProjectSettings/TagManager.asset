@@ -11,6 +11,9 @@ TagManager:
   - TransmissionButton
   - SecrecyButton
   - AbilitiesButton
+  - PauseMenu
+  - GameOver
+  - CostText
   layers:
   - Default
   - TransparentFX

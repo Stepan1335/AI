@@ -12,19 +12,20 @@ public class Country : MonoBehaviour
 
     //people
     [SerializeField]
-    int totalNumberOfPeople = 10000000;
-    int currentNumberOfInfectedPeople = 0;
-    int numberOfDeadPeople = 0;
+    long totalNumberOfPeople = 10000000;
+    long currentNumberOfInfectedPeople = 0;
+    long numberOfDeadPeople = 0;
+    int K0People = 100; // a threshold that separates the probability of transmission of the virus and its 100% transmission 
 
     //Gadgents
 
     [SerializeField]
-    int totalNumberOfGadgets = 100000000;
+    long totalNumberOfGadgets = 100000000;
 
     int currentNumberOfInfectedGadgets = 0;
 
     // type of country 
-       
+
     [SerializeField]
     bool pirat = true;
 
@@ -44,77 +45,124 @@ public class Country : MonoBehaviour
     int currentSecretiveness = 0;
     const int maxSecretiveness = 100;
     float currentLethality = 0;
+    int K0Gadget = 100; // a threshold that separates the probability of transmission of the virus and its 100% transmission 
+
+    //nanobots
+    float decreaseResearchPotential = 1;
 
 
     public List<Country> neighbours = new List<Country>();
 
     //Add Points system
-    //Get extra points when number in infected Gadgets people or dead people became more then some interes from total number
-    //Gadget
+
     bool firstInfectionOfGadgetInCountry = false;
 
-    public float infectedWaveOneOfGadgetsgetPoints = 0.01f; //Percent of gadgets 
+    float infectedWaveOneOfGadgetsgetPoints = 0.00001f; //Percent of gadgets 
     bool infectedWaveOneOfGadgetsgetPointsBool = false;
-    public int WaveOneOfGadgetsPointsAdd = 1;
+    int WaveOneOfGadgetsPointsAdd = 2;
 
-    public float infectedWaveTwoOfGadgetsgetPoints = 0.05f; //Percent of gadgets 
+    float infectedWaveTwoOfGadgetsgetPoints = 0.00005f; //Percent of gadgets 
     bool infectedWaveTwoOfGadgetsgetPointsBool = false;
-    public int WaveTwoOfGadgetsPointsAdd = 2;
+    int WaveTwoOfGadgetsPointsAdd = 3;
 
-    public float infectedWaveThreeOfGadgetsgetPoints = 0.1f; //Percent of gadgets 
+    float infectedWaveThreeOfGadgetsgetPoints = 0.0001f; //Percent of gadgets 
     bool infectedWaveThreeOfGadgetsgetPointsBool = false;
-    public int WaveThreeOfGadgetsPointsAdd = 3;
+    int WaveThreeOfGadgetsPointsAdd = 3;
 
-    public float infectedWaveFourOfGadgetsgetPoints = 0.4f; //Percent of gadgets 
+    float infectedWaveFourOfGadgetsgetPoints = 0.1f; //Percent of gadgets 
     bool infectedWaveFourOfGadgetsgetPointsBool = false;
-    public int WaveFourOfGadgetsPointsAdd = 4;
+    int WaveFourOfGadgetsPointsAdd = 1;
 
-    public float infectedWaveFiveOfGadgetsgetPoints = 0.7f; //Percent of gadgets 
+    float infectedWaveFiveOfGadgetsgetPoints = 0.5f; //Percent of gadgets 
     bool infectedWaveFiveOfGadgetsgetPointsBool = false;
-    public int WaveFiveOfGadgetsPointsAdd = 5;
+    int WaveFiveOfGadgetsPointsAdd = 1;
 
-    public float infectedWaveSixOfGadgetsgetPoints = 1; //Percent of gadgets 
+    float infectedWaveSixOfGadgetsgetPoints = 1; //Percent of gadgets 
     bool infectedWaveSixOfGadgetsgetPointsBool = false;
-    public int WaveSixOfGadgetsPointsAdd = 6;
+    int WaveSixOfGadgetsPointsAdd = 1;
 
+    //infected people
 
+    float infectedWaveOneOfInfectedPeoplegetPoints = 0.0001f; //Percent of InfectedPeople
+    bool infectedWaveOneOfInfectedPeoplegetPointsBool = false;
+    int WaveOneOfInfectedPeoplePointsAdd = 1;
 
+    float infectedWaveTwoOfInfectedPeoplegetPoints = 0.0005f; //Percent of InfectedPeople
+    bool infectedWaveTwoOfInfectedPeoplegetPointsBool = false;
+    int WaveTwoOfInfectedPeoplePointsAdd = 1;
 
+    float infectedWaveThreeOfInfectedPeoplegetPoints = 0.01f; //Percent of InfectedPeople
+    bool infectedWaveThreeOfInfectedPeoplegetPointsBool = false;
+    int WaveThreeOfInfectedPeoplePointsAdd = 2;
+
+    float infectedWaveFourOfInfectedPeoplegetPoints = 0.1f; //Percent of InfectedPeople
+    bool infectedWaveFourOfInfectedPeoplegetPointsBool = false;
+    int WaveFourOfInfectedPeoplePointsAdd = 2;
+
+    float infectedWaveFiveOfInfectedPeoplegetPoints = 0.5f; //Percent of InfectedPeople 
+    bool infectedWaveFiveOfInfectedPeoplegetPointsBool = false;
+    int WaveFiveOfInfectedPeoplePointsAdd = 2;
+
+    //Dead people 
+
+    float infectedWaveOneOfDeadPeoplegetPoints = 0.001f; //Percent of DeadPeople
+    bool infectedWaveOneOfDeadPeoplegetPointsBool = false;
+    int WaveOneOfDeadPeoplePointsAdd = 1;
+
+    float infectedWaveTwoOfDeadPeoplegetPoints = 0.005f; //Percent of DeadPeople 
+    bool infectedWaveTwoOfDeadPeoplegetPointsBool = false;
+    int WaveTwoOfDeadPeoplePointsAdd = 1;
+
+    float infectedWaveThreeOfDeadPeoplegetPoints = 0.1f; //Percent of DeadPeople
+    bool infectedWaveThreeOfDeadPeoplegetPointsBool = false;
+    int WaveThreeOfDeadPeoplePointsAdd = 1;
+
+    float infectedWaveFourOfDeadPeoplegetPoints = 0.4f; //Percent of DeadPeople
+    bool infectedWaveFourOfDeadPeoplegetPointsBool = false;
+    int WaveFourOfDeadPeoplePointsAdd = 2;
+
+    float infectedWaveFiveOfDeadPeoplegetPoints = 0.7f; //Percent of DeadPeople
+    bool infectedWaveFiveOfDeadPeoplegetPointsBool = false;
+    int WaveFiveOfDeadPeopleointsAdd = 3;
 
     // Gadgets coefficients which get influence speed of spread
-    public float currentUSBCoefficient = 0;
+    float currentUSBCoefficient = 0;
     float maxNumberOfUSBCoefficient = CoefficientData.MaxNumberOfUSBCoefficient;
 
-    public float currentPiratCoefficient = 0;
+    float currentPiratCoefficient = 0;
     float maxNumberOfPiratCoefficient = CoefficientData.MaxNumberOfPiratCoefficient;
 
-    public float currentEmailCoefficient = 0;
+    float currentEmailCoefficient = 0;
     float maxNumberOfEmailCoefficient = CoefficientData.MaxNumberOfEmailCoefficient;
 
-    public float currentSuspiciousSitesCoefficient = 0;
+    float currentSuspiciousSitesCoefficient = 0;
     float maxNumberOfSuspiciousSitesCoefficient = CoefficientData.MaxNumberOfSuspiciousSitesCoefficient;
 
-    public float currentMessengersCoefficient = 0;
+    float currentMessengersCoefficient = 0;
     float maxNumberOfMessengersCoefficient = CoefficientData.MaxNumberOfMessengersCoefficient;
 
-    public float currentCrossPlatformCoefficient = 0;
+    float currentCrossPlatformCoefficient = 0;
     float maxNumberOfCrossPlatformCoefficient = CoefficientData.MaxNumberOfCrossPlatformCoefficient;
 
     // People coefficients which get influence speed of spread
-    public float currentAnimalCoefficient = 0;
+    float currentAnimalCoefficient = 0;
     float maxNumberOfAnimalCoefficient = CoefficientData.MaxNumberOfAnimalCoefficient;
 
-    public float currentBirdsCoefficient = 0;
+    float currentBirdsCoefficient = 0;
     float maxNumberOfBirdsCoefficient = CoefficientData.MaxNumberOfBirdsCoefficient;
 
-    public float currentAirCoefficient = 0;
+    float currentAirCoefficient = 0;
     float maxNumberOfAirCoefficient = CoefficientData.MaxNumberOfAirCoefficient;
 
-    public float currentWaterCoefficient = 0;
+    float currentWaterCoefficient = 0;
     float maxNumberOfWaterCoefficient = CoefficientData.MaxNumberOfWaterCoefficient;
 
-    public float currentBloodCoefficient = 0;
+    float currentBloodCoefficient = 0;
     float maxNumberOfBloodCoefficient = CoefficientData.MaxNumberOfBloodCoefficient;
+
+    //Position for corecting coordinates in some countries
+    [SerializeField] GameObject position;
+
     
     // save for effectivity
     Animator animator;
@@ -135,13 +183,21 @@ public class Country : MonoBehaviour
     /// <value>position</value>
     public Vector2 Position
     {
-        get { return transform.position; }
+        get { if (position != null)
+            {
+                return position.transform.position;
+            }
+            else
+            {
+                return transform.position;
+            }
+        }
     }
 
     /// <summary>
     /// Get a total number of gadgets
     /// </summary>
-    public int TotalNumberOfGadgets
+    public long TotalNumberOfGadgets
     {
         get { return totalNumberOfGadgets; }
     }
@@ -157,7 +213,7 @@ public class Country : MonoBehaviour
     /// <summary>
     /// Get a total number of people
     /// </summary>
-    public int TotalNumberOfPeople
+    public long TotalNumberOfPeople
     {
         get { return totalNumberOfPeople; }
     }
@@ -165,7 +221,7 @@ public class Country : MonoBehaviour
     /// <summary>
     /// Get a current number of infected people
     /// </summary>
-    public int CurrentNumberOfInfectedPeople
+    public long CurrentNumberOfInfectedPeople
     {
         get { return currentNumberOfInfectedPeople; }
     }
@@ -173,7 +229,7 @@ public class Country : MonoBehaviour
     /// <summary>
     /// Get a current number of dead people
     /// </summary>
-    public int CurrentNumberOfDeadPeople
+    public long CurrentNumberOfDeadPeople
     {
         get { return numberOfDeadPeople; }
     }
@@ -234,28 +290,28 @@ public class Country : MonoBehaviour
             // count the how many gadgets get infected in next step of iteration
             if (infectedCountry && currentNumberOfInfectedGadgets < totalNumberOfGadgets && !antivirusDesigned)
             {             
-                // if number of infected people less than 20             
-                if (currentNumberOfInfectedGadgets <= 20)
+                // if number of infected people less than k0            
+                if (currentNumberOfInfectedGadgets <= K0Gadget)
                 {
                     //chanse to ger infected 
-                    float chanceToGetInfected = Mathf.Clamp((float)currentNumberOfInfectedGadgets / 10 + currentCrossPlatformCoefficient + currentMessengersCoefficient
-                        + currentSuspiciousSitesCoefficient + currentEmailCoefficient + currentPiratCoefficient + currentUSBCoefficient, 0, 1);
+                    float chanceToGetInfected = Mathf.Clamp((float)currentNumberOfInfectedGadgets / 20 + (currentCrossPlatformCoefficient + currentMessengersCoefficient
+                        + currentSuspiciousSitesCoefficient + currentEmailCoefficient + currentPiratCoefficient + currentUSBCoefficient) * 30, 0, 1);
 
-                    //if number of people less than 20 so it's only change to get ingected so next iteration of how many gadgets will be ingected on next step
+                    //if number of people less than k0 so it's only change to get ingected so next iteration of how many gadgets will be ingected on next step
                     //would be count by formula 
                     if (Random.value < chanceToGetInfected)
                     {
                         currentNumberOfInfectedGadgets = currentNumberOfInfectedGadgets + Random.Range(1, (int)Mathf.Clamp(currentNumberOfInfectedGadgets * (1 + currentCrossPlatformCoefficient
-                            + currentMessengersCoefficient + currentSuspiciousSitesCoefficient + currentEmailCoefficient + currentPiratCoefficient + currentUSBCoefficient), 1, 20));
+                            + currentMessengersCoefficient + currentSuspiciousSitesCoefficient + currentEmailCoefficient + currentPiratCoefficient + currentUSBCoefficient), 1, K0Gadget));
                     }
                 }
 
                 //if infected gadjets are more than 20 so it describes by function of the parabola
-                else if (currentNumberOfInfectedGadgets > 20)
+                else if (currentNumberOfInfectedGadgets > K0Gadget)
                 {
                     float powerOfParabola = 1 + currentCrossPlatformCoefficient + currentMessengersCoefficient
                         + currentSuspiciousSitesCoefficient + currentEmailCoefficient + currentPiratCoefficient + currentUSBCoefficient;
-                    currentNumberOfInfectedGadgets = Mathf.Clamp(currentNumberOfInfectedGadgets + Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedGadgets, powerOfParabola)),
+                    currentNumberOfInfectedGadgets = (int)Mathf.Clamp(currentNumberOfInfectedGadgets + Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedGadgets / 5, powerOfParabola)),
                         1, totalNumberOfGadgets);
 
                 }
@@ -266,33 +322,34 @@ public class Country : MonoBehaviour
             }
 
             // count the how many people get infected in next step of iteration
-            if (canInfectPeople && currentNumberOfInfectedPeople < totalNumberOfPeople && !antivirusDesigned)
+            if (canInfectPeople && currentNumberOfInfectedPeople < totalNumberOfPeople - numberOfDeadPeople && !antivirusDesigned)
             {              
-                // if number of infected people less than 20             
-                if (currentNumberOfInfectedPeople <= 20)
+                // if number of infected people less than k0            
+                if (currentNumberOfInfectedPeople <= K0People)
                 {
                     //chanse to ger infected 
-                    float chanceToGetInfected = Mathf.Clamp((float)currentNumberOfInfectedPeople / 10 + currentAnimalCoefficient + currentBirdsCoefficient
-                        + currentAirCoefficient + currentWaterCoefficient + currentBloodCoefficient, 0, 1);
+                    float chanceToGetInfected = Mathf.Clamp((float)currentNumberOfInfectedPeople / 10 + (currentAnimalCoefficient + currentBirdsCoefficient
+                        + currentAirCoefficient + currentWaterCoefficient + currentBloodCoefficient) * 20, 0, 1);
 
-                    //if number of people less than 20 so it's only change to get ingected so next iteration of how many people will be ingected on next step
+                    //if number of people less than k0 so it's only change to get ingected so next iteration of how many people will be ingected on next step
                     //would be count by formula 
                     if (Random.value < chanceToGetInfected)
                     {
                         currentNumberOfInfectedPeople = currentNumberOfInfectedPeople + Random.Range(1, (int)Mathf.Clamp(currentNumberOfInfectedPeople * (1 + currentAnimalCoefficient + currentBirdsCoefficient
-                        + currentAirCoefficient + currentWaterCoefficient + currentBloodCoefficient), 1, 20));
+                        + currentAirCoefficient + currentWaterCoefficient + currentBloodCoefficient), 1, K0People));
                     }
                 }
 
                 //if infected people are more than 20 so it describes by function of the parabola
-                else if (currentNumberOfInfectedPeople > 20)
+                else if (currentNumberOfInfectedPeople > K0People)
                 {
                     float powerOfParabola = 1 + currentAnimalCoefficient + currentBirdsCoefficient
                         + currentAirCoefficient + currentWaterCoefficient + currentBloodCoefficient;
-                    currentNumberOfInfectedPeople = Mathf.Clamp(currentNumberOfInfectedPeople + Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedPeople, powerOfParabola)),
+                    currentNumberOfInfectedPeople = (int)Mathf.Clamp(currentNumberOfInfectedPeople + Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedPeople / 4, powerOfParabola)),
                         1, totalNumberOfPeople - numberOfDeadPeople);
 
                 }
+                AddPointsForInfectedPeople();
                 //Debug.Log("current number of infected people = " + currentNumberOfInfectedPeople);
             }
 
@@ -301,7 +358,7 @@ public class Country : MonoBehaviour
             // chance to get virus detected
             if (!countryWorkOnAntivirus && infectedCountry)
             {
-                float coefficieantChanceToDetectedVirus = 0.01f;
+                float coefficieantChanceToDetectedVirus = 0.005f;
                 float chanceToDetectedVirus = coefficieantChanceToDetectedVirus + (float)currentNumberOfInfectedGadgets / (float)totalNumberOfGadgets - currentSecretiveness / maxSecretiveness;
                 float random = Random.value;
                 if (random < chanceToDetectedVirus)
@@ -315,11 +372,12 @@ public class Country : MonoBehaviour
             }
 
             //working on antivirus 
-            if (countryWorkOnAntivirus && !worldScript.AntivirusDesigned)
+            if (countryWorkOnAntivirus && !worldScript.AntivirusDesigned && numberOfDeadPeople != totalNumberOfPeople)
             {
                 // count how much country use its research potensian it depends on number of infected gadgets
-                float minPotentialIsUsed = 0.05f;
-                howMuchofThatPotentialIsUsed = currentNumberOfInfectedGadgets / (totalNumberOfGadgets * Mathf.Clamp(currentSecretiveness, 1, maxSecretiveness)) + minPotentialIsUsed; //the more secretiveness the hard to develop antivirus
+                float minPotentialIsUsed = 0.02f;
+                howMuchofThatPotentialIsUsed = Mathf.Clamp(((float)currentNumberOfInfectedGadgets / ((float)totalNumberOfGadgets * (float)decreaseResearchPotential)) * (1 - (float)currentSecretiveness / (float)maxSecretiveness) 
+                    - (float)numberOfDeadPeople / (float)totalNumberOfPeople  + minPotentialIsUsed, 0 ,1); //the more secretiveness the hard to develop antivirus, The more people are dead the hard to develop a antivirus
                 
                 // count the current progres in antivirus research 
                 if (worldScript.CurrentProgressInAntivirusResearch < worldScript.MaxProgressInAntivirusResearch)
@@ -341,12 +399,12 @@ public class Country : MonoBehaviour
                 //increase number of infected people if people starts to die
                 if (currentNumberOfInfectedPeople > 0 && howMuchPeopleWillDie != 0)
                 {
-                    currentNumberOfInfectedPeople = Mathf.Clamp(currentNumberOfInfectedPeople - (int)((float)currentNumberOfInfectedPeople * ((float)howMuchPeopleWillDie / ((float)totalNumberOfPeople - (float)numberOfDeadPeople))), 0, totalNumberOfPeople);
+                    currentNumberOfInfectedPeople = (int)Mathf.Clamp(currentNumberOfInfectedPeople - (int)((float)currentNumberOfInfectedPeople * ((float)howMuchPeopleWillDie / ((float)totalNumberOfPeople - (float)numberOfDeadPeople))), 0, totalNumberOfPeople);
                     //Debug.Log("idd");
                 }
 
-                numberOfDeadPeople = Mathf.Clamp(numberOfDeadPeople + howMuchPeopleWillDie, 0, totalNumberOfPeople);
-
+                numberOfDeadPeople = (int)Mathf.Clamp(numberOfDeadPeople + howMuchPeopleWillDie, 0, totalNumberOfPeople);
+                AddPointsForDeadPeople();
 
             }
             //test
@@ -358,6 +416,19 @@ public class Country : MonoBehaviour
             //restart the timer
             timer.Run();
         }
+    }
+
+    /// <summary>
+    /// Change Decrease Research Potential Coefficient
+    /// consider a current number of infected people
+    /// </summary>
+    /// <param name="number"></param>
+    public void ChangeDecreaseResearchPotentialCoefficient( float number)
+    {
+        decreaseResearchPotential = 1 + ((float)currentNumberOfInfectedGadgets / (float)totalNumberOfPeople) * number;
+
+        //test
+        //Debug.Log("decreaseResearchPotential = " + decreaseResearchPotential + "  did ");
     }
 
     /// <summary>
@@ -375,50 +446,146 @@ public class Country : MonoBehaviour
 
         else if (fateOfinfectedGadgetFromTotal > infectedWaveOneOfGadgetsgetPoints && !infectedWaveOneOfGadgetsgetPointsBool)
         {
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
             infectedWaveOneOfGadgetsgetPointsBool = true;
             World.AddPoints(WaveOneOfGadgetsPointsAdd);
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
         }
 
         else if(fateOfinfectedGadgetFromTotal > infectedWaveTwoOfGadgetsgetPoints && !infectedWaveTwoOfGadgetsgetPointsBool)
         {
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
             infectedWaveTwoOfGadgetsgetPointsBool = true;
             World.AddPoints(WaveTwoOfGadgetsPointsAdd);
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
         }
 
         else if(fateOfinfectedGadgetFromTotal > infectedWaveThreeOfGadgetsgetPoints && !infectedWaveThreeOfGadgetsgetPointsBool)
         {
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
             infectedWaveThreeOfGadgetsgetPointsBool = true;
             World.AddPoints(WaveThreeOfGadgetsPointsAdd);
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
         }
 
         else if(fateOfinfectedGadgetFromTotal > infectedWaveFourOfGadgetsgetPoints && !infectedWaveFourOfGadgetsgetPointsBool)
         {
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
             infectedWaveFourOfGadgetsgetPointsBool = true;
             World.AddPoints(WaveFourOfGadgetsPointsAdd);
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
         }
 
         else if(fateOfinfectedGadgetFromTotal > infectedWaveFiveOfGadgetsgetPoints && !infectedWaveFiveOfGadgetsgetPointsBool)
         {
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
             infectedWaveFiveOfGadgetsgetPointsBool = true;
             World.AddPoints(WaveFiveOfGadgetsPointsAdd);
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
         }
 
         else if(fateOfinfectedGadgetFromTotal == infectedWaveSixOfGadgetsgetPoints && !infectedWaveSixOfGadgetsgetPointsBool)
         {
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
             infectedWaveSixOfGadgetsgetPointsBool = true;
             World.AddPoints(WaveSixOfGadgetsPointsAdd);
-            Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+            //Debug.Log("Points = " + World.Points + " fateOfinfectedGadgetFromTotal = " + fateOfinfectedGadgetFromTotal);
+        }
+    }
+
+    /// <summary>
+    /// Add points when number in infected people became more then some interes from total number
+    /// </summary>
+    void AddPointsForInfectedPeople()
+    {
+        float fateOfInfectedPeopleFromTotal = (float)currentNumberOfInfectedPeople / (float)totalNumberOfPeople;
+
+        if (fateOfInfectedPeopleFromTotal > infectedWaveOneOfInfectedPeoplegetPoints && !infectedWaveOneOfInfectedPeoplegetPointsBool)
+        {
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+            infectedWaveOneOfInfectedPeoplegetPointsBool = true;
+            World.AddPoints(WaveOneOfInfectedPeoplePointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+        }
+
+        else if (fateOfInfectedPeopleFromTotal > infectedWaveTwoOfInfectedPeoplegetPoints && !infectedWaveTwoOfInfectedPeoplegetPointsBool)
+        {
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+            infectedWaveTwoOfInfectedPeoplegetPointsBool = true;
+            World.AddPoints(WaveTwoOfInfectedPeoplePointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+        }
+
+        else if (fateOfInfectedPeopleFromTotal > infectedWaveThreeOfInfectedPeoplegetPoints && !infectedWaveThreeOfInfectedPeoplegetPointsBool)
+        {
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+            infectedWaveThreeOfInfectedPeoplegetPointsBool = true;
+            World.AddPoints(WaveThreeOfInfectedPeoplePointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+        }
+
+        else if (fateOfInfectedPeopleFromTotal > infectedWaveFourOfInfectedPeoplegetPoints && !infectedWaveFourOfInfectedPeoplegetPointsBool)
+        {
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+            infectedWaveFourOfInfectedPeoplegetPointsBool = true;
+            World.AddPoints(WaveFourOfInfectedPeoplePointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+        }
+
+        else if (fateOfInfectedPeopleFromTotal > infectedWaveFiveOfInfectedPeoplegetPoints && !infectedWaveFiveOfInfectedPeoplegetPointsBool)
+        {
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+            infectedWaveFiveOfInfectedPeoplegetPointsBool = true;
+            World.AddPoints(WaveFiveOfInfectedPeoplePointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfInfectedPeopleFromTotal = " + fateOfInfectedPeopleFromTotal);
+        }
+    }
+
+    /// <summary>
+    /// Add points when number in dead people became more then some interes from total number
+    /// </summary>
+    void AddPointsForDeadPeople()
+    {
+        float fateOfDeadPeopleFromTotal = (float)numberOfDeadPeople / (float)totalNumberOfPeople;
+
+        if (fateOfDeadPeopleFromTotal > infectedWaveOneOfDeadPeoplegetPoints && !infectedWaveOneOfDeadPeoplegetPointsBool)
+        {
+            //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
+            infectedWaveOneOfDeadPeoplegetPointsBool = true;
+            World.AddPoints(WaveOneOfDeadPeoplePointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
+        }
+
+        else if (fateOfDeadPeopleFromTotal > infectedWaveTwoOfDeadPeoplegetPoints && !infectedWaveTwoOfDeadPeoplegetPointsBool)
+        {
+            //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
+            infectedWaveTwoOfDeadPeoplegetPointsBool = true;
+            World.AddPoints(WaveTwoOfDeadPeoplePointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
+        }
+
+        else if (fateOfDeadPeopleFromTotal > infectedWaveThreeOfDeadPeoplegetPoints && !infectedWaveThreeOfDeadPeoplegetPointsBool)
+        {
+           //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
+            infectedWaveThreeOfDeadPeoplegetPointsBool = true;
+            World.AddPoints(WaveThreeOfDeadPeoplePointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
+        }
+
+        else if (fateOfDeadPeopleFromTotal > infectedWaveFourOfDeadPeoplegetPoints && !infectedWaveFourOfDeadPeoplegetPointsBool)
+        {
+            //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
+            infectedWaveFourOfDeadPeoplegetPointsBool = true;
+            World.AddPoints(WaveFourOfDeadPeoplePointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
+        }
+
+        else if (fateOfDeadPeopleFromTotal > infectedWaveFiveOfDeadPeoplegetPoints && !infectedWaveFiveOfDeadPeoplegetPointsBool)
+        {
+            //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
+            infectedWaveFiveOfDeadPeoplegetPointsBool = true;
+            World.AddPoints(WaveFiveOfDeadPeopleointsAdd);
+            //Debug.Log("Points = " + World.Points + " fateOfDeadPeopleFromTotal = " + fateOfDeadPeopleFromTotal);
         }
     }
 
@@ -429,7 +596,7 @@ public class Country : MonoBehaviour
     public void GetInfectedGadget(int howManyGadgetToInfect)
     {
         infectedCountry = true;
-        currentNumberOfInfectedGadgets = currentNumberOfInfectedGadgets + howManyGadgetToInfect;
+        currentNumberOfInfectedGadgets = (int)Mathf.Clamp(currentNumberOfInfectedGadgets + howManyGadgetToInfect, 0 , totalNumberOfGadgets); 
     }
 
     /// <summary>
@@ -439,7 +606,10 @@ public class Country : MonoBehaviour
     public void GetInfectedPeople(int howManyPeopleToInfect)
     {
         canInfectPeople = true;
-        currentNumberOfInfectedPeople += howManyPeopleToInfect;
+        currentNumberOfInfectedPeople = (int)Mathf.Clamp(currentNumberOfInfectedPeople + howManyPeopleToInfect, 0, totalNumberOfPeople);
+
+        //test
+        //Debug.Log("infected people = " + CurrentNumberOfInfectedPeople);
     }
 
     public void GetSelected()
@@ -601,7 +771,7 @@ public class Country : MonoBehaviour
             currentAnimalCoefficient = 0;
         }
         //test
-        //Debug.Log("USBCoefficients was chaged");
+        //Debug.Log("AnimalCoefficients was chaged");
     }
 
     /// <summary>
@@ -620,7 +790,7 @@ public class Country : MonoBehaviour
             currentBirdsCoefficient = 0;
         }
         //test
-        //Debug.Log("USBCoefficients was chaged");
+        //Debug.Log("BirdCoefficients was chaged");
     }
 
     /// <summary>
@@ -639,7 +809,7 @@ public class Country : MonoBehaviour
             currentAirCoefficient = 0;
         }
         //test
-        //Debug.Log("USBCoefficients was chaged");
+        //Debug.Log("AirCoefficients was chaged");
     }
 
     /// <summary>
@@ -658,7 +828,7 @@ public class Country : MonoBehaviour
             currentWaterCoefficient = 0;
         }
         //test
-        //Debug.Log("USBCoefficients was chaged");
+        //Debug.Log("WaterCoefficients was chaged");
     }
 
     /// <summary>
@@ -677,7 +847,7 @@ public class Country : MonoBehaviour
             currentBloodCoefficient = 0;
         }
         //test
-        //Debug.Log("USBCoefficients was chaged");
+        //Debug.Log("BloodCoefficients was chaged " + currentBloodCoefficient);
     }
     #endregion
 }

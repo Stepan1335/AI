@@ -6,23 +6,31 @@ public static class CoefficientData
 {
     #region Fields
     // Gadgets coefficients which get influence speed of spread    
-    const float maxNumberOfUSBCoefficient = 0.03f;
-    const float maxNumberOfPiratCoefficient = 0.03f;
-    const float maxNumberOfEmailCoefficient = 0.03f;
-    const float maxNumberOfSuspiciousSitesCoefficient = 0.03f;
-    const float maxNumberOfMessengersCoefficient = 0.03f;
-    const float maxNumberOfCrossPlatformCoefficient = 0.03f;
+    const float maxNumberOfUSBCoefficient = 0.04f;
+    const float maxNumberOfPiratCoefficient = 0.04f;
+    const float maxNumberOfEmailCoefficient = 0.04f;
+    const float maxNumberOfSuspiciousSitesCoefficient = 0.04f;
+    const float maxNumberOfMessengersCoefficient = 0.04f;
+    const float maxNumberOfCrossPlatformCoefficient = 0.04f;
 
     // People coefficients which get influence speed of spread
-    const float maxNumberOfAnimalCoefficient = 0.03f;
-    const float maxNumberOfBirdsCoefficient = 0.03f;
-    const float maxNumberOfAirCoefficient = 0.03f;
-    const float maxNumberOfWaterCoefficient = 0.03f;
-    const float maxNumberOfBloodCoefficient = 0.03f;
+    const float maxNumberOfAnimalCoefficient = 0.04f;
+    const float maxNumberOfBirdsCoefficient = 0.04f;
+    const float maxNumberOfAirCoefficient = 0.04f;
+    const float maxNumberOfWaterCoefficient = 0.04f;
+    const float maxNumberOfBloodCoefficient = 0.04f;
+
+    // Adding cost for buttons 
+    static int addingPointsCost = 0;
 
     #endregion
 
     #region Properties
+
+    public static int AddingPointsCost
+    {
+        get { return addingPointsCost; }
+    }
 
     /// <summary>
     /// Get a max number of USB Coefficient 
@@ -110,6 +118,13 @@ public static class CoefficientData
     public static float MaxNumberOfBloodCoefficient
     {
         get { return maxNumberOfBloodCoefficient; }
+    }
+    #endregion
+
+    #region Methods
+    public static void AddingAdditionalPoints(int addningNumber)
+    {
+        addingPointsCost += addningNumber;
     }
     #endregion
 }

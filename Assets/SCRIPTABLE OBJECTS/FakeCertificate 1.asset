@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: FakeCertificate 1
   m_EditorClassIdentifier: 
   informationAboutButton: "Virus make a fake security certificate. Level 1 \n"
+  pointCost: 1

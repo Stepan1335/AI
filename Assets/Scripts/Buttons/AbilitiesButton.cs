@@ -8,7 +8,6 @@ public class AbilitiesButton : MonoBehaviour
     [SerializeField] GameObject[] secrecyButtons;
     [SerializeField] GameObject[] abilitiesButton;
 
-
     public void PressButton()
     {    
         //Activate or deactivate a gameobject
@@ -35,5 +34,6 @@ public class AbilitiesButton : MonoBehaviour
                 button.SetActive(true);
             }
         }
+        AudioManager.Play(AudioClipName.ButtonClick);
     }
 }

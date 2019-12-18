@@ -17,6 +17,7 @@ public class SecrecyButton : MonoBehaviour
 
     public void PressButton()
     {
+        AudioManager.Play(AudioClipName.ButtonClick);
         if (transmittionButtons.Length > 0)
         {
             foreach (GameObject button in transmittionButtons)

@@ -8,11 +8,34 @@ public class InformationAboutButton : MonoBehaviour
     [SerializeField] InformationForButtons information;
 
     Text informationText;
+    Text pointCostText;
+
+    [HideInInspector]
+    public int pointsCost;
+    int contstPointsCost;
+
+    private void Start()
+    {
+        informationText = GameObject.FindGameObjectWithTag("ButtonInformalText").GetComponent<Text>();
+        pointCostText = GameObject.FindGameObjectWithTag("CostText").GetComponent<Text>();
+        contstPointsCost = information.pointCost;
+    }
+
+    private void Update()
+    {
+        UpdatePointsCost();
+    }
 
     public void ButtonGetDown()
     {
-        informationText = GameObject.FindGameObjectWithTag("ButtonInformalText").GetComponent<Text>();
+        AudioManager.Play(AudioClipName.ButtonClick);
 
         informationText.text = information.informationAboutButton;
+        pointCostText.text = "Costs " + pointsCost.ToString() + " points";
+    }
+
+    void UpdatePointsCost()
+    {
+        pointsCost = contstPointsCost + CoefficientData.AddingPointsCost;
     }
 }

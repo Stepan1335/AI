@@ -7,8 +7,8 @@ public class RestructureCodeButton : MonoBehaviour
 {
     //
     [SerializeField] Sprite changeImage;
-    public int pointsCost = 0;
-    bool buttonPressed = false;
+    int pointsCost = 0;
+    public bool buttonPressed = false;
     public GameObject[] buttonsWhatNeedTosetActiveWhenButtonIsPressed;
     [SerializeField] int reduceAnvitirusResearchOn = 2;
 
@@ -17,10 +17,14 @@ public class RestructureCodeButton : MonoBehaviour
     /// </summary>
     public void ButtonGetDown()
     {
+        pointsCost = transform.parent.GetComponentInChildren<InformationAboutButton>().pointsCost; //find out how much this button will be cost
+        //Debug.Log("pointsCost = " + pointsCost);
         if (World.Points >= pointsCost)
         {
             if (!buttonPressed) // button can be pressed only one time 
             {
+                CoefficientData.AddingAdditionalPoints(1);
+                AudioManager.Play(AudioClipName.ButtonClick);
                 World.reduceProgressOfAntivirusResearch(reduceAnvitirusResearchOn);
                 gameObject.GetComponent<Image>().sprite = changeImage; //change sprite 
                 buttonPressed = true;
@@ -32,6 +36,7 @@ public class RestructureCodeButton : MonoBehaviour
                     {
                         button.SetActive(true);
                     }
+
                 }
             }
         }

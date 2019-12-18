@@ -19,5 +19,6 @@ public class VirusButton : MonoBehaviour
             startButton.GetComponent<TransmissionButton>().PressButton();
         }
         MouseCursor.CantControl(); // enable control in game
+        AudioManager.Play(AudioClipName.ButtonClick);
     }
 }

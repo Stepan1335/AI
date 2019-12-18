@@ -31,7 +31,7 @@ public class Package : MonoBehaviour
         if (countryToFollow != null)
         {
             currentPosition = transform.position;
-            targetPosition = countryToFollow.transform.position;
+            targetPosition = countryToFollow.GetComponent<Country>().Position;
             if ( Vector2.Distance(currentPosition, targetPosition) < 0.1)
             {
 

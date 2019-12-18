@@ -7,10 +7,10 @@ public class IncreaseSecresitivinessLevel2 : MonoBehaviour
 {
     //
     [SerializeField] Sprite changeImage;
-    public int pointsCost = 0;
+    int pointsCost = 0;
     public bool buttonPressed = false;
-    public GameObject[] buttonsWhatNeedTosetActiveWhenButtonIsPressed;
     [SerializeField] int addSecresitivinesNumber = 2;
+    public GameObject[] buttonsWhatNeedTosetActiveWhenButtonIsPressed;
     //buttons that need to be checked before unlock next one
     public GameObject[] checkButtons;
 
@@ -19,10 +19,14 @@ public class IncreaseSecresitivinessLevel2 : MonoBehaviour
     /// </summary>
     public void ButtonGetDown()
     {
+        pointsCost = transform.parent.GetComponentInChildren<InformationAboutButton>().pointsCost; //find out how much this button will be cost
+        //Debug.Log("pointsCost = " + pointsCost);
         if (World.Points >= pointsCost)
         {
             if (!buttonPressed) // button can be pressed only one time 
             {
+                CoefficientData.AddingAdditionalPoints(1);
+                AudioManager.Play(AudioClipName.ButtonClick);
                 GameObject[] countries;
                 countries = GameObject.FindGameObjectsWithTag("Country");
                 if (countries.Length > 0)
@@ -61,7 +65,6 @@ public class IncreaseSecresitivinessLevel2 : MonoBehaviour
                         }
                     }
                 }
-
             }
         }
     }
