@@ -224,7 +224,7 @@ public class World : MonoBehaviour
 
         //currentProgressInAntivirusResearch = maxProgressInAntivirusResearch;
 
-        points = 300;
+        //points = 300;
     }
 
     // Update is called once per frame
@@ -295,6 +295,7 @@ public class World : MonoBehaviour
                     {
                         MenuManager.GoToMenu(MenuName.GameOver);
                     }
+                    MouseCursor.CantControl();
                 }
                 else if (AntivirusDesigned)
                 {
@@ -306,6 +307,7 @@ public class World : MonoBehaviour
                     {
                         MenuManager.GoToMenu(MenuName.GameOver);
                     }
+                    MouseCursor.CantControl();
                 }
                 else if (currentNumberOfInfectedPeople >= totalNumberOfPeople - currentNumberofDeadPeople)
                 {
@@ -319,6 +321,7 @@ public class World : MonoBehaviour
                         {
                             MenuManager.GoToMenu(MenuName.GameOver);
                         }
+                        MouseCursor.CantControl();
                     }
                     else if (peoplePrayOnAI)
                     {
@@ -330,6 +333,7 @@ public class World : MonoBehaviour
                         {
                             MenuManager.GoToMenu(MenuName.GameOver);
                         }
+                        MouseCursor.CantControl();
                     }
                 }
             }

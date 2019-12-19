@@ -54,7 +54,8 @@ public class ColorEffect : MonoBehaviour
             }
             timer.Run();
 
-            Debug.Log("priorityCoefficient = " + priorityCoefficient + "  " + country.CountryName);
+            //test
+            //Debug.Log("priorityCoefficient = " + priorityCoefficient + "  " + country.CountryName);
             
         }
     }

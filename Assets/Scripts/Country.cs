@@ -311,8 +311,14 @@ public class Country : MonoBehaviour
                 {
                     float powerOfParabola = 1 + currentCrossPlatformCoefficient + currentMessengersCoefficient
                         + currentSuspiciousSitesCoefficient + currentEmailCoefficient + currentPiratCoefficient + currentUSBCoefficient;
-                    currentNumberOfInfectedGadgets = (int)Mathf.Clamp(currentNumberOfInfectedGadgets + Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedGadgets / 5, powerOfParabola)),
-                        1, totalNumberOfGadgets);
+                    long addingNumberOfInfectedGadgets1 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedGadgets / 25, powerOfParabola));// i need it constuction because I guess if number out of renge of int it become 0
+                    long addingNumberOfInfectedGadgets2 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedGadgets / 25, powerOfParabola));
+                    long addingNumberOfInfectedGadgets3 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedGadgets / 25, powerOfParabola));
+                    long addingNumberOfInfectedGadgets4 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedGadgets / 25, powerOfParabola));
+                    long addingNumberOfInfectedGadgets5 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedGadgets / 25, powerOfParabola));
+
+                    currentNumberOfInfectedGadgets = (int)Mathf.Clamp(currentNumberOfInfectedGadgets + addingNumberOfInfectedGadgets1 + addingNumberOfInfectedGadgets2 + addingNumberOfInfectedGadgets3 
+                        + addingNumberOfInfectedGadgets4 + addingNumberOfInfectedGadgets5, 1, totalNumberOfGadgets);
 
                 }
 
@@ -345,16 +351,17 @@ public class Country : MonoBehaviour
                 {
                     float powerOfParabola = 1 + currentAnimalCoefficient + currentBirdsCoefficient
                         + currentAirCoefficient + currentWaterCoefficient + currentBloodCoefficient;
-                    currentNumberOfInfectedPeople = (int)Mathf.Clamp(currentNumberOfInfectedPeople + Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedPeople / 4, powerOfParabola)),
-                        1, totalNumberOfPeople - numberOfDeadPeople);
-
+                    long addingInfectedPeople1 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedPeople / 25, powerOfParabola)); // i need it constuction because I guess if number out of renge of int it become 0
+                    long addingInfectedPeople2 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedPeople / 25, powerOfParabola));
+                    long addingInfectedPeople3 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedPeople / 25, powerOfParabola));
+                    long addingInfectedPeople4 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedPeople / 25, powerOfParabola));
+                    long addingInfectedPeople5 = Random.Range(10, (int)Mathf.Pow(currentNumberOfInfectedPeople / 25, powerOfParabola));
+                    currentNumberOfInfectedPeople = (int)Mathf.Clamp(currentNumberOfInfectedPeople + addingInfectedPeople1 + addingInfectedPeople2 + addingInfectedPeople3 + addingInfectedPeople4 + addingInfectedPeople5,
+                        0, Mathf.Clamp(totalNumberOfPeople - numberOfDeadPeople, 0, totalNumberOfPeople));
                 }
                 AddPointsForInfectedPeople();
                 //Debug.Log("current number of infected people = " + currentNumberOfInfectedPeople);
             }
-
-            
-
             // chance to get virus detected
             if (!countryWorkOnAntivirus && infectedCountry)
             {
@@ -409,6 +416,13 @@ public class Country : MonoBehaviour
             }
             //test
             //Debug.Log("numberOfDeadPeople = " + numberOfDeadPeople);
+
+            //check if in country all people are dead so it means that noone can be infected
+            if (numberOfDeadPeople >= totalNumberOfPeople)
+            {
+                currentNumberOfInfectedPeople = 0;
+                canInfectPeople = false;
+            }
 
             //Check the current Lethality
             currentLethality = worldScript.CurrentLethality;
