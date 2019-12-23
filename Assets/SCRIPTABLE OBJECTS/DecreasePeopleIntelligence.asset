@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   informationAboutButton: Nanobots decrease intelligence of people . Infected people
     don't want to develop antivirus.
-  pointCost: 15
+  pointCost: 20

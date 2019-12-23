@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   informationAboutButton: Virus start to spam people a infected messages messengers.
     If someone follow the link in the message gadget would infected
-  pointCost: 5
+  pointCost: 3

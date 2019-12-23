@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RobotProduction
   m_EditorClassIdentifier: 
   informationAboutButton: Virus start to produce robots. It's sounds like SkyNet.
-  pointCost: 7
+  pointCost: 20

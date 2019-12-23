@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Suicide
   m_EditorClassIdentifier: 
   informationAboutButton: Infected People start doing suicide.
-  pointCost: 25
+  pointCost: 40

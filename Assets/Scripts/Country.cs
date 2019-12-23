@@ -366,7 +366,7 @@ public class Country : MonoBehaviour
             if (!countryWorkOnAntivirus && infectedCountry)
             {
                 float coefficieantChanceToDetectedVirus = 0.005f;
-                float chanceToDetectedVirus = coefficieantChanceToDetectedVirus + (float)currentNumberOfInfectedGadgets / (float)totalNumberOfGadgets - currentSecretiveness / maxSecretiveness;
+                float chanceToDetectedVirus = Mathf.Clamp(coefficieantChanceToDetectedVirus + (float)currentNumberOfInfectedGadgets / (float)totalNumberOfGadgets - currentSecretiveness / maxSecretiveness, 0, 1);
                 float random = Random.value;
                 if (random < chanceToDetectedVirus)
                 {
@@ -382,7 +382,7 @@ public class Country : MonoBehaviour
             if (countryWorkOnAntivirus && !worldScript.AntivirusDesigned && numberOfDeadPeople != totalNumberOfPeople)
             {
                 // count how much country use its research potensian it depends on number of infected gadgets
-                float minPotentialIsUsed = 0.02f;
+                float minPotentialIsUsed = 0.005f;
                 howMuchofThatPotentialIsUsed = Mathf.Clamp(((float)currentNumberOfInfectedGadgets / ((float)totalNumberOfGadgets * (float)decreaseResearchPotential)) * (1 - (float)currentSecretiveness / (float)maxSecretiveness) 
                     - (float)numberOfDeadPeople / (float)totalNumberOfPeople  + minPotentialIsUsed, 0 ,1); //the more secretiveness the hard to develop antivirus, The more people are dead the hard to develop a antivirus
                 

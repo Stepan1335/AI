@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   informationAboutButton: 'When people visit suspicious websites like with a lot of
     violence or porn their gadgets would be infected by virus '
-  pointCost: 5
+  pointCost: 3

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   informationAboutButton: Nanobots manipulate people's hormone system and make them
     more angry, what increase violence between people.
-  pointCost: 10
+  pointCost: 30

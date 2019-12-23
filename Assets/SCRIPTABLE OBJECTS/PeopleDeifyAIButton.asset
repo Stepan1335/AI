@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PeopleDeifyAIButton
   m_EditorClassIdentifier: 
   informationAboutButton: Nanobots force people to deify the AI.
-  pointCost: 10
+  pointCost: 18

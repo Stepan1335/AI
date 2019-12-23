@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DronProduction
   m_EditorClassIdentifier: 
   informationAboutButton: "Virus creates drones. \n"
-  pointCost: 5
+  pointCost: 15

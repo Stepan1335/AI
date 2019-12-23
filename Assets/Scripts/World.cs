@@ -175,6 +175,8 @@ public class World : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartGame();
+
         //Get all links on countries
         countriesGameObj = GameObject.FindGameObjectsWithTag("Country");
         foreach (GameObject countryGameObj in countriesGameObj)
@@ -366,7 +368,7 @@ public class World : MonoBehaviour
 
         }
     }
-    /*
+    
     /// <summary>
     /// starts a game
     /// </summary>
@@ -376,9 +378,10 @@ public class World : MonoBehaviour
         currentLethality = 0;
         peoplePrayOnAI = false;
         matrixCreation = false;
+        CoefficientData.ResetToZeroAdditionalPoints();
         endingText = " ";
         points = 0;
-    }*/
+    }
     /// <summary>
     /// reduce Progress Of Antivirus Research on set number
     /// </summary>

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   informationAboutButton: It infects usb flash drive and then infect other devices
     where it is inserted
-  pointCost: 5
+  pointCost: 3

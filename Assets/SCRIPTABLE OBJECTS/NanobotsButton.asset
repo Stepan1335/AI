@@ -15,4 +15,4 @@ MonoBehaviour:
   informationAboutButton: Virus start to produce nanobots. Nanobots infect one people
     in all countries then breed there and infect other people. Nanobots behavior is
     close to real virus. It could be beginning of the end.
-  pointCost: 1
+  pointCost: 5

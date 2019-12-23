@@ -122,6 +122,11 @@ public static class CoefficientData
     #endregion
 
     #region Methods
+    public static void ResetToZeroAdditionalPoints()
+    {
+        addingPointsCost = 0;
+    }
+
     public static void AddingAdditionalPoints(int addningNumber)
     {
         addingPointsCost += addningNumber;

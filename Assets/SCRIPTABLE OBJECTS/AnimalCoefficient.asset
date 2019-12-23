@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AnimalCoefficient
   m_EditorClassIdentifier: 
   informationAboutButton: Nanobots can be transmitted by Animals
-  pointCost: 5
+  pointCost: 3

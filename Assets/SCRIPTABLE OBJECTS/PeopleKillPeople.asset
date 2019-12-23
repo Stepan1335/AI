@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PeopleKillPeople
   m_EditorClassIdentifier: 
   informationAboutButton: Nanobots force people to kill people
-  pointCost: 12
+  pointCost: 24

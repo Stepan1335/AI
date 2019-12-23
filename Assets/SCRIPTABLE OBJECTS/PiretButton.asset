@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   informationAboutButton: When people  download and open a files from pirate websites
     their gadgets get infected by virus
-  pointCost: 5
+  pointCost: 3

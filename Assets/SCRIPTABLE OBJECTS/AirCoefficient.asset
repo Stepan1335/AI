@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AirCoefficient
   m_EditorClassIdentifier: 
   informationAboutButton: Nanobots can be transmitted by Air
-  pointCost: 5
+  pointCost: 3

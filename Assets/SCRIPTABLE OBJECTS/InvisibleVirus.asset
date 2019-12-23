@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: InvisibleVirus
   m_EditorClassIdentifier: 
   informationAboutButton: 'Virus is really tough to notice and hard to design a antivirus '
-  pointCost: 20
+  pointCost: 10

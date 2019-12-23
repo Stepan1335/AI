@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: HardRobotProduction
   m_EditorClassIdentifier: 
   informationAboutButton: "Virus starts to create heavy models of robots \n"
-  pointCost: 7
+  pointCost: 22

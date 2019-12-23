@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: NanobotsTransmission
   m_EditorClassIdentifier: 
   informationAboutButton: Nanobots force people to transmit themselves
-  pointCost: 2
+  pointCost: 10
